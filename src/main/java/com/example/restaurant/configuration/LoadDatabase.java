@@ -1,10 +1,7 @@
 package com.example.restaurant.configuration;
 
-import com.example.restaurant.enums.AccountStatus;
-import com.example.restaurant.model.Adress;
-import com.example.restaurant.repositories.AccountRepository;
-import com.example.restaurant.repositories.AdressRepository;
-import com.example.restaurant.services.AccountServiceImpl;
+import com.example.restaurant.service.AccountService;
+import com.example.restaurant.service.AddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,15 +14,21 @@ public class LoadDatabase {
 
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+    AccountService accountService;
+    AddressService addressService;
 
+    public LoadDatabase(AccountService accountService, AddressService addressService) {
+        this.accountService = accountService;
+        this.addressService = addressService;
+    }
     @Bean
-    CommandLineRunner initDatabase(AccountRepository accountRepository, AdressRepository adressRepository) {
+    CommandLineRunner initDatabase() {
 
         return args -> {
-//            AccountServiceImpl accountImpl = new AccountServiceImpl(accountRepository);
-//            Adress adress = new Adress("Krakowska", "1", "Warszawa", "Polska");
-//            adressRepository.save(adress);
-//            accountImpl.createAccount("password", adress, AccountStatus.ACTIVE);
+//            accountService.createAccount("password", "street", "city", "state", "zip");
+//
+//            adressService.createAdress("Krakowska", "1", "Warszawa", "Polska");
+
 //        Chef chef = new Chef(new Date(), account, "Kowalski", "23123", "teste");
 //        chefRepository.save(chef);
 //        Set<Chef> chefs = new HashSet<>();
@@ -35,7 +38,8 @@ public class LoadDatabase {
 //        kitchenRepository.save(kitchen);
 //        Branch branch = new Branch("Warszawa", adress, kitchen, employees);
 //        branchRepository.save(branch);
-            log.info("Preloading " + accountRepository.count() + " accounts");
+            log.info("Preloading " + accountService.count() + " accounts");
+            log.info("Preloading " + addressService.count() + " adresses");
 
         };
     }

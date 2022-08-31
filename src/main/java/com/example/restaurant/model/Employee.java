@@ -1,6 +1,9 @@
 package com.example.restaurant.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +16,8 @@ import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Employee extends Person {
     @Id
@@ -38,36 +43,6 @@ public abstract class Employee extends Person {
 
     public Employee() {
         super();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-
-    public String getName() {
-        return super.getName();
-    }
-
-    public Date getDateJoined() {
-        return dateJoined;
-    }
-
-    public void setDateJoined(Date dateJoined) {
-        this.dateJoined = dateJoined;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     @Override

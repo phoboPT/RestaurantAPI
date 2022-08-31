@@ -1,5 +1,8 @@
 package com.example.restaurant.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,14 +14,13 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
-
     private String name;
-
     @OneToMany
     @JoinColumn(name = "branch", referencedColumnName = "id")
     private Set<Branch> branch = new HashSet<>();
@@ -32,34 +34,6 @@ public class Restaurant {
         this.branch = branch;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean addBranch(Branch branch) {
-        this.branch.add(branch);
-        return true;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Branch> getBranch() {
-        return branch;
-    }
-
-    public void setBranch(Set<Branch> branch) {
-        this.branch = branch;
-    }
 
     @Override
     public String toString() {
@@ -84,6 +58,5 @@ public class Restaurant {
         return id != null ? id.hashCode() : 0;
     }
 
-    public void getEmployees() {
-    }
+
 }

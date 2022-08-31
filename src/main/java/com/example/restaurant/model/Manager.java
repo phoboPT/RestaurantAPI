@@ -1,6 +1,9 @@
 package com.example.restaurant.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +14,8 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Manager extends Employee {
     @Id
@@ -23,18 +28,6 @@ public class Manager extends Employee {
     }
 
     public Manager() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean addEmployee(Employee employee) {
-        return true;
     }
 
     @Override

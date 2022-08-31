@@ -1,4 +1,4 @@
-package com.example.restaurant.repositories;
+package com.example.restaurant.repository;
 
 import com.example.restaurant.model.Receptionist;
 import org.springframework.data.repository.CrudRepository;

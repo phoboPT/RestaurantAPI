@@ -1,27 +1,26 @@
-package com.example.restaurant.services;
+package com.example.restaurant.service;
 
 import com.example.restaurant.enums.AccountStatus;
-import com.example.restaurant.exceptions.AccountNotFoundException;
+import com.example.restaurant.exception.AccountNotFoundException;
 import com.example.restaurant.model.Account;
-import com.example.restaurant.repositories.AccountRepository;
+import com.example.restaurant.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    private AccountRepository accountRepository;
-    private AdressService adressService;
+    private final AccountRepository accountRepository;
+    private final AddressService addressService;
 
 
-    public AccountServiceImpl(AccountRepository accountRepository, AdressService adressService) {
+    public AccountServiceImpl(AccountRepository accountRepository, AddressService addressService) {
         this.accountRepository = accountRepository;
-        this.adressService = adressService;
+        this.addressService = addressService;
     }
 
     @Override
     public Account createAccount(String password, String street, String city, String state, String zip) {
-
-        var adress = adressService.createAdress(street, city, state, zip);
-        Account account = new Account(password, adress, AccountStatus.ACTIVE);
+        var address = addressService.createAddress(street, city, state, zip);
+        Account account = new Account(password, address, AccountStatus.ACTIVE);
         this.accountRepository.save(account);
         return account;
     }

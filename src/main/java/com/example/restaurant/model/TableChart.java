@@ -1,34 +1,51 @@
 package com.example.restaurant.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Objects;
+
+@Getter
+@Setter
+@Entity
 public class TableChart {
-    private int tabbleChartId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String image;
 
-    public TableChart(int tabbleChartId, String image) {
-        this.tabbleChartId = tabbleChartId;
+    public TableChart(long id, String image) {
+        this.id = id;
         this.image = image;
     }
 
-    public int getTabbleChartId() {
-        return tabbleChartId;
+    public TableChart() {
+
     }
 
-    public void setTabbleChartId(int tabbleChartId) {
-        this.tabbleChartId = tabbleChartId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TableChart that = (TableChart) o;
+
+        return Objects.equals(id, that.id);
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "TableChart{" +
-                "tabbleChartId=" + tabbleChartId +
+                "tabbleChartId=" + id +
                 ", image='" + image + '\'' +
                 '}';
     }

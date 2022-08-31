@@ -1,4 +1,4 @@
-package com.example.restaurant.exceptions;
+package com.example.restaurant.exception;
 
 public class AccountNotFoundException extends RuntimeException {
     public AccountNotFoundException(String message) {

@@ -1,6 +1,9 @@
 package com.example.restaurant.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Kitchen {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +26,6 @@ public class Kitchen {
     private String name;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "chef", referencedColumnName = "id")
-
     private Set<Chef> chefs = new HashSet<>();
 
     public Kitchen(String name, Set<Chef> chefs) {
@@ -31,30 +35,6 @@ public class Kitchen {
 
     public Kitchen() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<Chef> getChefs() {
-        return chefs;
-    }
-
-    public void setChefs(Set<Chef> chefs) {
-        this.chefs = chefs;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

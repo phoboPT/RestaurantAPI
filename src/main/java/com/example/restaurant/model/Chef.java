@@ -1,6 +1,9 @@
 package com.example.restaurant.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +14,8 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-
+@Getter
+@Setter
 public class Chef extends Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,19 +26,6 @@ public class Chef extends Employee {
     }
 
     public Chef() {
-        super();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean takeOrder() {
-        return true;
     }
 
     @Override
