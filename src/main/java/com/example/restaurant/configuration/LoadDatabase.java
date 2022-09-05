@@ -1,17 +1,15 @@
 package com.example.restaurant.configuration;
 
-import com.example.restaurant.service.AccountService;
-import com.example.restaurant.service.AddressService;
+import com.example.restaurant.service.modelService.AccountService;
+import com.example.restaurant.service.modelService.AddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 public class LoadDatabase {
-
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
     AccountService accountService;
@@ -21,6 +19,7 @@ public class LoadDatabase {
         this.accountService = accountService;
         this.addressService = addressService;
     }
+
     @Bean
     CommandLineRunner initDatabase() {
 

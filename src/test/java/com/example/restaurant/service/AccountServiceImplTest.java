@@ -1,55 +1,82 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.exception.AccountNotFoundException;
+import com.example.restaurant.service.modelService.AccountService;
+import com.example.restaurant.service.modelService.AccountServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testng.annotations.BeforeMethod;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class AccountServiceImplTest {
-
     @Autowired
     private AccountService accountService;
 
-    @BeforeMethod
-    public void setUp() {
-        System.out.println("BeforeMethod");
-        MockitoAnnotations.openMocks(this);
-//
-    }
-
     @Test
     public void accountRepositoryShouldSaveAccount() {
-        var account=accountService.createAccount("password", "street", "city", "state", "zip");
-        assertThat(account).isNotNull();
+        var count = accountService.count();
+        var account = accountService.create("password",
+                                            "hugo",
+                                            "street",
+                                            "city",
+                                            "state",
+                                            "zip");
+        assertThat(accountService.count()).isGreaterThan(count);
+        assertEquals(account.getPassword(),
+                     "password");
+        assertEquals(account.getUsername(),
+                     "hugo");
+        assertEquals(account.getAddressModel()
+                            .getStreet(),
+                     "street");
+        assertEquals(account.getAddressModel()
+                            .getCity(),
+                     "city");
+        assertEquals(account.getAddressModel()
+                            .getState(),
+                     "state");
+        assertEquals(account.getAddressModel()
+                            .getZip(),
+                     "zip");
 
     }
+
     @Test
     public void accountRepositoryShouldReturnAccount() {
-        var account=accountService.createAccount("password", "street", "city", "state", "zip");
+        var account = accountService.create("password",
+                                            "Jorge",
+                                            "street",
+                                            "city",
+                                            "state",
+                                            "zip");
         assertThat(account).isNotNull();
-        assertEquals(accountService.getAccount(account.getId()), account);
+        assertEquals(accountService.getById(account.getId()),
+                     account);
+    }
+
+    @Test
+    public void accountRepositoryShouldThrowExceptionIfAlreadyExists() {
+        assertThrows(AccountServiceImpl.AccountAlreadyExistsException.class,
+                     () -> accountService.create("password",
+                                                 "Jorge",
+                                                 "street",
+                                                 "city",
+                                                 "state",
+                                                 "zip"));
     }
 
     @Test
     public void accountRepositoryShouldReturnAccountCount() {
-        var account=accountService.createAccount("password", "street", "city", "state", "zip");
-        assertThat(account).isNotNull();
-        assertEquals(3, accountService.count());
+        assertThat(accountService.count()).isGreaterThan(0);
     }
 
     @Test
     public void accountRepositoryShouldThrowAccountNotFoundException() {
-        assertThrows(AccountNotFoundException.class, () -> accountService.getAccount(23123));
+        assertThrows(AccountServiceImpl.AccountNotFoundException.class,
+                     () -> accountService.getById(23123));
     }
 
-    @Test
-    public void accountRepositoryShouldThrowAccount() {
-        assertThrows(AccountNotFoundException.class, () -> accountService.getAccount(23123));
-    }
 }
