@@ -1,7 +1,7 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.ChefModel;
-import com.example.restaurant.service.modelService.ChefServiceImpl;
+import com.example.restaurant.model.Chef;
+import com.example.restaurant.service.ChefServiceImpl;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +24,17 @@ public class ChefEndpoint {
     }
 
     @RequestMapping ("/{id}")
-    public ChefModel getById(@PathVariable long id) throws ChefServiceImpl.ChefNotFoundException {
+    public Chef getById(@PathVariable long id) throws ChefServiceImpl.ChefNotFoundException {
         return chefService.getById(id);
     }
 
     @RequestMapping ("/create")
-    public ChefModel create(@RequestBody ChefModel chefModel) {
-        return chefService.create(new Date(), chefModel.getAccountModel(), chefModel.getName(), chefModel.getPhone(), chefModel.getEmail());
+    public Chef create(@RequestBody Chef chef) {
+        return chefService.create(new Date(),
+                                  chef.getAccount(),
+                                  chef.getName(),
+                                  chef.getPhone(),
+                                  chef.getEmail());
     }
 
 }

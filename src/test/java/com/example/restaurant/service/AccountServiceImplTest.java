@@ -1,7 +1,5 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.service.modelService.AccountService;
-import com.example.restaurant.service.modelService.AccountServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,16 +27,16 @@ class AccountServiceImplTest {
                      "password");
         assertEquals(account.getUsername(),
                      "hugo");
-        assertEquals(account.getAddressModel()
+        assertEquals(account.getAddress()
                             .getStreet(),
                      "street");
-        assertEquals(account.getAddressModel()
+        assertEquals(account.getAddress()
                             .getCity(),
                      "city");
-        assertEquals(account.getAddressModel()
+        assertEquals(account.getAddress()
                             .getState(),
                      "state");
-        assertEquals(account.getAddressModel()
+        assertEquals(account.getAddress()
                             .getZip(),
                      "zip");
 

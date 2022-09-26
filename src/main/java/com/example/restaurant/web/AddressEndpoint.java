@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.AddressModel;
-import com.example.restaurant.service.modelService.AddressService;
-import com.example.restaurant.service.modelService.AddressServiceImpl;
+import com.example.restaurant.model.Address;
+import com.example.restaurant.service.AddressService;
+import com.example.restaurant.service.AddressServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +21,11 @@ public class AddressEndpoint {
     }
 
     @PostMapping ("/create")
-    public AddressModel createAddress(@RequestBody AddressModel addressModel) {
-        return addressService.create(addressModel.getStreet(), addressModel.getCity(), addressModel.getState(), addressModel.getZip());
+    public Address createAddress(@RequestBody Address address) {
+        return addressService.create(address.getStreet(),
+                                     address.getCity(),
+                                     address.getState(),
+                                     address.getZip());
     }
 
     @GetMapping ("/count")
@@ -31,7 +34,7 @@ public class AddressEndpoint {
     }
 
     @GetMapping ("/{id}")
-    public AddressModel getAddress(@PathVariable long id) throws AddressServiceImpl.AddressNotFoundException {
+    public Address getAddress(@PathVariable long id) throws AddressServiceImpl.AddressNotFoundException {
         return addressService.getById(id);
     }
 }

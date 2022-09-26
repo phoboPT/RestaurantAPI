@@ -1,7 +1,5 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.service.modelService.AddressService;
-import com.example.restaurant.service.modelService.AddressServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

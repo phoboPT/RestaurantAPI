@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.ReceptionistModel;
-import com.example.restaurant.service.modelService.ReceptionistService;
-import com.example.restaurant.service.modelService.ReceptionistServiceImpl;
+import com.example.restaurant.model.Receptionist;
+import com.example.restaurant.service.ReceptionistService;
+import com.example.restaurant.service.ReceptionistServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +21,12 @@ public class ReceptionistEndpoint {
     }
 
     @PostMapping ("/create")
-    public ReceptionistModel create(@RequestBody ReceptionistModel receptionistModel) {
-        return receptionistService.create(new Date(), receptionistModel.getAccountModel(), receptionistModel.getName(), receptionistModel.getPhone(), receptionistModel.getEmail());
+    public Receptionist create(@RequestBody Receptionist receptionistModel) {
+        return receptionistService.create(new Date(),
+                                          receptionistModel.getAccount(),
+                                          receptionistModel.getName(),
+                                          receptionistModel.getPhone(),
+                                          receptionistModel.getEmail());
     }
 
     @GetMapping ("/count")
@@ -31,7 +35,7 @@ public class ReceptionistEndpoint {
     }
 
     @GetMapping ("/{id}")
-    public ReceptionistModel getById(@PathVariable long id) throws ReceptionistServiceImpl.ReceptionistNotFoundException {
+    public Receptionist getById(@PathVariable long id) throws ReceptionistServiceImpl.ReceptionistNotFoundException {
         return receptionistService.getById(id);
     }
 

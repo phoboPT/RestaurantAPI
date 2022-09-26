@@ -1,7 +1,7 @@
 package com.example.restaurant.configuration;
 
-import com.example.restaurant.service.modelService.AccountService;
-import com.example.restaurant.service.modelService.AddressService;
+import com.example.restaurant.service.AccountService;
+import com.example.restaurant.service.AddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -38,7 +38,7 @@ public class LoadDatabase {
 //        Branch branch = new Branch("Warszawa", adress, kitchen, employees);
 //        branchRepository.save(branch);
             log.info("Preloading " + accountService.count() + " accounts");
-            log.info("Preloading " + addressService.count() + " adresses");
+            log.info("Preloading " + addressService.count() + " addresses");
 
         };
     }

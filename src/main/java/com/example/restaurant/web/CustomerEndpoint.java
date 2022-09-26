@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.CustomerModel;
-import com.example.restaurant.service.modelService.CustomerService;
-import com.example.restaurant.service.modelService.CustomerServiceImpl;
+import com.example.restaurant.model.Customer;
+import com.example.restaurant.service.CustomerService;
+import com.example.restaurant.service.CustomerServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,14 +24,14 @@ public class CustomerEndpoint {
     }
 
     @GetMapping ("/{id}")
-    public CustomerModel getById(@PathVariable long id) throws CustomerServiceImpl.CustomerNotFoundException {
+    public Customer getById(@PathVariable long id) throws CustomerServiceImpl.CustomerNotFoundException {
         return customerService.getById(id);
     }
 
     @PostMapping ("/create")
-    public CustomerModel create(@RequestBody CustomerModel customerModel) {
-        return customerService.create(customerModel.getName(),
-                                      customerModel.getEmail(),
-                                      customerModel.getPhone());
+    public Customer create(@RequestBody Customer customer) {
+        return customerService.create(customer.getName(),
+                                      customer.getEmail(),
+                                      customer.getPhone());
     }
 }

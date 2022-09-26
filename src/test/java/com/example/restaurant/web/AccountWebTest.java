@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
 import com.example.restaurant.enums.AccountStatus;
-import com.example.restaurant.model.AccountModel;
-import com.example.restaurant.model.AddressModel;
+import com.example.restaurant.model.Account;
+import com.example.restaurant.model.Address;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @WebMvcTest (AccountEndpoint.class)
+
 public class AccountWebTest {
     @Autowired
     ObjectMapper mapper;
@@ -27,21 +28,21 @@ public class AccountWebTest {
 
     @Test
     public void createShouldSaveAndReturnAccountModel() throws Exception {
-        AddressModel address = new AddressModel("street",
-                                                "city",
-                                                "state",
-                                                "zip");
+        Address address = new Address("street",
+                                      "city",
+                                      "state",
+                                      "zip");
 
-        AccountModel accountModel = new AccountModel("password",
-                                                     "hugo",
-                                                     address,
-                                                     AccountStatus.ACTIVE);
+        Account account = new Account("password",
+                                      "hugo",
+                                      address,
+                                      AccountStatus.ACTIVE);
 
-        when(accountEndpoint.create(accountModel)).thenReturn(accountModel);
+        when(accountEndpoint.create(account)).thenReturn(account);
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/account/create")
                                                                           .contentType(MediaType.APPLICATION_JSON)
                                                                           .accept(MediaType.APPLICATION_JSON)
-                                                                          .content(this.mapper.writeValueAsString(accountModel));
+                                                                          .content(this.mapper.writeValueAsString(account));
 
         mockMvc.perform(mockRequest)
                .andExpect(status().isOk())

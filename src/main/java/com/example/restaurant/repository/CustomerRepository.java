@@ -1,9 +1,9 @@
 package com.example.restaurant.repository;
 
-import com.example.restaurant.model.CustomerModel;
+import com.example.restaurant.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends CrudRepository<CustomerModel, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
 }
 

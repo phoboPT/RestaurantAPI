@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.BranchModel;
-import com.example.restaurant.service.modelService.BranchService;
-import com.example.restaurant.service.modelService.BranchServiceImpl;
+import com.example.restaurant.model.Branch;
+import com.example.restaurant.service.BranchService;
+import com.example.restaurant.service.BranchServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +19,8 @@ public class BranchEndpoint {
     }
 
     @PostMapping ("/create")
-    public BranchModel create(@RequestBody BranchModel branchModel) {
-        return branchService.create(branchModel.getName());
+    public Branch create(@RequestBody Branch branch) {
+        return branchService.create(branch.getName());
     }
 
     @GetMapping ("/count")
@@ -29,7 +29,7 @@ public class BranchEndpoint {
     }
 
     @GetMapping ("/{id}")
-    public BranchModel getById(@PathVariable long id) throws BranchServiceImpl.BranchNotFoundException {
+    public Branch getById(@PathVariable long id) throws BranchServiceImpl.BranchNotFoundException {
         return branchService.getById(id);
     }
 

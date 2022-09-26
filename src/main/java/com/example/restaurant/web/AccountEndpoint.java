@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.AccountModel;
-import com.example.restaurant.service.modelService.AccountService;
-import com.example.restaurant.service.modelService.AccountServiceImpl;
+import com.example.restaurant.model.Account;
+import com.example.restaurant.service.AccountService;
+import com.example.restaurant.service.AccountServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +22,10 @@ public class AccountEndpoint {
     }
     @PostMapping ("/create")
     @ExceptionHandler (AccountServiceImpl.AccountAlreadyExistsException.class)
-    AccountModel create(@RequestBody @NotNull AccountModel accountModel) throws
-                                                                         AccountServiceImpl.AccountNotFoundException {
-        var address = accountModel.getAddressModel();
-        return accountService.create(accountModel.getPassword(),
-                                     accountModel.getUsername(),
+    Account create(@RequestBody @NotNull Account account) throws AccountServiceImpl.AccountNotFoundException {
+        var address = account.getAddress();
+        return accountService.create(account.getPassword(),
+                                     account.getUsername(),
                                      address.getStreet(),
                                      address.getCity(),
                                      address.getState(),
@@ -38,7 +37,7 @@ public class AccountEndpoint {
     }
     @GetMapping ("/{id}")
     @ExceptionHandler (AccountServiceImpl.AccountNotFoundException.class)
-    AccountModel getById(@PathVariable long id) throws AccountServiceImpl.AccountNotFoundException {
+    Account getById(@PathVariable long id) throws AccountServiceImpl.AccountNotFoundException {
         return accountService.getById(id);
     }
 

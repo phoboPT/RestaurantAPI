@@ -1,8 +1,6 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.service.modelService.AccountService;
-import com.example.restaurant.service.modelService.ChefService;
-import com.example.restaurant.service.modelService.ChefServiceImpl;
+import com.example.restaurant.Builder.AccountDataBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,95 +13,59 @@ import static org.testng.Assert.assertThrows;
 
 @SpringBootTest
 public class ChefServiceImplTest {
-    @Autowired
-    private ChefService chefService;
+    @Autowired private ChefService chefService;
 
-    @Autowired
-    private AccountService accountService;
+    @Autowired private AccountService accountService;
 
     @Test
     public void createChefShouldSaveChef() {
         var count = chefService.count();
-        var account = accountService.create("password",
-                                            "Maria",
-                                            "street",
-                                            "city",
-                                            "state",
-                                            "zip");
-        var chef = chefService.create(new Date(),
-                                      account,
-                                      "Jorge",
-                                      "1234",
-                                      "maria@maria.pt");
+        String name = "Gonçalo";
+        var account = AccountDataBuilder.buildFullAccountWithUsername(name);
+        String phoneNumber = "1234";
+        String email = "maria@maria.pt";
+        var chef = chefService.create(new Date(), account, name, phoneNumber, email);
         assertThat(chefService.count()).isGreaterThan(count);
-        assertEquals(chef.getName(),
-                     "Jorge");
-        assertEquals(chef.getEmail(),
-                     "maria@maria.pt");
-        assertEquals(chef.getPhone(),
-                     "1234");
-        assertEquals(chef.getAccountModel()
-                         .getPassword(),
-                     "password");
-        assertEquals(chef.getAccountModel()
-                         .getUsername(),
-                     "Maria");
+        assertEquals(chef.getName(), name);
+        assertEquals(chef.getEmail(), email);
+        assertEquals(chef.getPhone(), phoneNumber);
+        assertEquals(chef.getAccount()
+                         .getPassword(), "password");
+        assertEquals(chef.getAccount()
+                         .getUsername(), name);
 
-        assertEquals(chef.getAccountModel()
-                         .getAddressModel()
-                         .getStreet(),
-                     "street");
-        assertEquals(chef.getAccountModel()
-                         .getAddressModel()
-                         .getCity(),
-                     "city");
-        assertEquals(chef.getAccountModel()
-                         .getAddressModel()
-                         .getState(),
-                     "state");
-        assertEquals(chef.getAccountModel()
-                         .getAddressModel()
-                         .getZip(),
-                     "zip");
-        
+        assertEquals(chef.getAccount()
+                         .getAddress()
+                         .getStreet(), "street");
+        assertEquals(chef.getAccount()
+                         .getAddress()
+                         .getCity(), "city");
+        assertEquals(chef.getAccount()
+                         .getAddress()
+                         .getState(), "state");
+        assertEquals(chef.getAccount()
+                         .getAddress()
+                         .getZip(), "zip");
+
     }
 
     @Test
     public void createChefShouldThrowChefAlreadyExistsException() {
-        var account = accountService.create("password",
-                                            "Antonia",
-                                            "street",
-                                            "city",
-                                            "state",
-                                            "zip");
-        chefService.create(new Date(),
-                           account,
-                           "Jorge",
-                           "1234",
-                           "email");
+        String name = "Antonia";
+        var account = AccountDataBuilder.buildFullAccountWithUsername(name);
+        String phoneNumber = "1234";
+        String email = "email";
+        chefService.create(new Date(), account, name, phoneNumber, email);
         assertThrows(ChefServiceImpl.ChefAlreadyExistsException.class,
-                     () -> chefService.create(new Date(),
-                                              account,
-                                              "Maria",
-                                              "1234",
-                                              "email"));
+                     () -> chefService.create(new Date(), account, name, phoneNumber, email));
     }
 
     @Test
     public void createChefShouldReturnChef() {
-        var account = accountService.create("username",
-                                            "Joaquim",
-                                            "password",
-                                            "firstName",
-                                            "lastName",
-                                            "email");
-        var receptionist = chefService.create(new Date(),
-                                              account,
-                                              "Jorge",
-                                              "1234",
-                                              "Joaquim@Joaquim.pt");
-        assertEquals(receptionist,
-                     chefService.getById(receptionist.getId()));
+        String name = "Ricardo";
+        var account = AccountDataBuilder.buildFullAccountWithUsername(name);
+        var receptionist = chefService.create(new Date(), account, name, "1234", "Joaquim@Joaquim.pt");
+        assertEquals(receptionist, chefService.getById(receptionist.getId()));
     }
 
     @Test
@@ -114,8 +76,7 @@ public class ChefServiceImplTest {
 
     @Test
     public void createChefShouldThrowChefNotFoundException() throws ChefServiceImpl.ChefNotFoundException {
-        assertThrows(ChefServiceImpl.ChefNotFoundException.class,
-                     () -> chefService.getById(23123));
+        assertThrows(ChefServiceImpl.ChefNotFoundException.class, () -> chefService.getById(23123));
     }
 
 }

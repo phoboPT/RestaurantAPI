@@ -1,8 +1,8 @@
 package com.example.restaurant.web;
 
-import com.example.restaurant.model.KitchenModel;
-import com.example.restaurant.service.modelService.KitchenService;
-import com.example.restaurant.service.modelService.KitchenServiceImpl;
+import com.example.restaurant.model.Kitchen;
+import com.example.restaurant.service.KitchenService;
+import com.example.restaurant.service.KitchenServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class KitchenEndpoint {
         this.kitchenService = kitchenService;
     }
     @PostMapping ("/create")
-    public KitchenModel create(@RequestBody KitchenModel kitchen) {
+    public Kitchen create(@RequestBody Kitchen kitchen) {
         return kitchenService.create(kitchen.getName());
     }
 
@@ -28,7 +28,7 @@ public class KitchenEndpoint {
     }
 
     @GetMapping ("/{id}")
-    public KitchenModel getById(@PathVariable long id) throws KitchenServiceImpl.KitchenNotFoundException {
+    public Kitchen getById(@PathVariable long id) throws KitchenServiceImpl.KitchenNotFoundException {
         return kitchenService.getById(id);
     }
 }
